@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block header %}
+{% endblock header %}
+
+{% block main %}
+    <section class="vh-100" style="background-color: #f4f5f7;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-lg-6 mb-4 mb-lg-0">
+                    <div class="card mb-3" style="border-radius: .5rem;">
+                        <div class="row g-0">
+                            <div class="col-md-4 gradient-custom text-center text-white"
+                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                    <div class="hover-zoom">
+                                        <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center border border-2 border-light"
+                                             style="width: 100px; height: 100px; margin-top: 25px; margin-left: 50px">
+                                            <img src="{{ custom_user.photo.url }}" alt="Profile Picture"
+                                                 class="img-fluid">
+                                        </div>
+                                    </div>
+                                <div style="color: black">
+                                    <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+                                    <p></p>
+                                </div>
+                                <i class="far fa-edit mb-5"></i>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <h6>Malumotlar</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Email</h6>
+                                            <p class="text-muted">{{ custom_user.email }}</p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Phone</h6>
+                                            <p class="text-muted">{{ custom_user.phone }}</p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Mobile</h6>
+                                            <p class="text-muted">{{ custom_user.mobile }}</p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Manzil</h6>
+                                            <p class="text-muted">{{ custom_user.address }}</p>
+                                        </div>
+                                    </div>
+                                    <h6>Links</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="d-flex justify-content-start">
+                                        <a href="{{ custom_user.telegram }}"><i class="fab fa-telegram fa-lg me-3"></i></a>
+                                        <a href="{{ custom_user.instagram }}"><i class="fab fa-instagram fa-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row pt-5 pb-5">
+                                <div class="d-flex justify-content-around">
+                                    <p><b>{{ user.first_name }} siz joylagan e'lonlar:</b></p>
+                                    {% for model in models %}
+                                        <a href="{% url 'detail' model.pk %}">{{ model.name }}</a><br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock main %}

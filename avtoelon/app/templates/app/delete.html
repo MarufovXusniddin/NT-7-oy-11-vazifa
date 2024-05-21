@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block header %}
+{% endblock header %}
+
+{% block main %}
+<style>
+    #dm {
+        border: 2px solid black;
+        border-radius: 20px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+        padding: 20px 20px 20px 20px;
+    }
+    #buttons{
+        margin-left: 20px;
+    }
+</style>
+<form id="dm" class="d-flex justify-content-center container" method="post">
+    {% csrf_token %}
+    <p><b>{{ model.name }}</b> Siz shu e'lonni o'chirasizmi?</p>
+    <div id="buttons">
+        <a class="btn btn-dark" href="{% url 'index' %}">Ortga</a>
+        <button class="btn btn-danger" type="submit">Ha</button>
+    </div>
+</form>
+{% endblock main %}

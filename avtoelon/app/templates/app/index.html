@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <!--Styles-->
+<link rel="stylesheet" type="text/css" href="{% static 'app/css/styles.css' %}">
+
+
+
+    <div class="container">
+        <!--Brands-->
+        <div id="brands" class="d-flex flex-wrap justify-content-between">
+            <a class="btn btn-outline-black btn-lg" href="{% url 'index' %}">Barchasi</a>
+            {% for brand in brands %}
+                <a class="btn btn-outline-black btn-lg" href="{% url 'models_by_brands' brand.pk %}"
+                   role="button">{{ brand.name }}</a>
+            {% endfor %}
+        </div>
+
+        <!--Models-->
+        <div class="row row-cols-1 row-cols-md-2 g-4" style="margin-top: 25px; margin-bottom: 25px">
+            {% for model in models %}
+                <div class="col ">
+                    <div class="card">
+                        {% if model.photo %}
+                            <img src="{{ model.photo.url }}" class="card-img-top" alt="{{ model.name }}"
+                                 height="400px"/>
+                        {% else %}
+                            <img src="{% static 'app/images/not.jpg' %}" class="card-img-top" alt="Placeholder Image"
+                                 height="400px"/>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">Modeli: {{ model.name }}</h5>
+                            <p>Yili: {{ model.year }}</p>
+                            <p>Yurgani: {{ model.mileage }} km</p>
+                            <p>Manzil: {{ model.address }}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'detail' model.id %}" type="button" class="btn btn-dark"
+                                   data-mdb-ripple-init>Batafsil</a>
+                                <p><small class="text-muted">{{ model.pub_date }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main %}

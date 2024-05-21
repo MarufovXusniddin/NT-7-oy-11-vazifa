@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block header %}
+{% endblock header %}
+{% block title %}
+<title>{{title}}</title>
+{% endblock title %}
+
+{% block main %}
+<style>
+    #rf{
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 20px 20px 20px 20px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+</style>
+
+<form id="rf" method="post" class="container">
+    {% csrf_token %}
+    {{form.username}}
+    {{form.email}}
+    {{form.password1}}
+    {{form.password2}}
+    <input type="submit" value="Sign Up" class="btn btn-success">
+</form>
+{% endblock main %}

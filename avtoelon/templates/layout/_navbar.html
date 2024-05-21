@@ -1,0 +1,84 @@
+<style>
+    #right {
+        margin-left: 1200px;
+    }
+</style>
+{% load static %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <!-- Container wrapper -->
+    <div class="">
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-1">
+                <li class="nav-item">
+                    {#                    <a class="nav-link" href="{% url 'index' %}">Bosh sahifa</a>#}
+                    <a href="{% url 'index' %}"><img
+                            src="{% static 'app/images/logo.jpg' %}"
+                            class="rounded-circle"
+                            height="50"
+                            alt="Black and White Portrait of a Man"
+                            loading="lazy"
+                            style="margin-left: 5px"
+                    /></a>
+                </li>
+            </ul>
+            <!-- Left links -->
+
+            <!-- Right links -->
+            <div id="right" class="d-flex align-items-center">
+                <a data-mdb-ripple-init class="btn btn-link px-3 me-2">
+                </a>
+                <a href="{% url 'user_login' %}" data-mdb-ripple-init type="button" class="btn btn-link px-3 me-2">
+                    Login
+                </a>
+                <a href="{% url 'user_register' %}" data-mdb-ripple-init type="button" class="btn btn-primary me-3">
+                    Registratsiya
+                </a>
+                {% if request.user.is_authenticated %}
+                    <!-- Avatar -->
+                    <div class="dropdown">
+                    <a
+                            data-mdb-dropdown-init
+                            class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                            href="#"
+                            id="navbarDropdownMenuAvatar"
+                            role="button"
+                            aria-expanded="false"
+                    >
+                        <img
+                                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                class="rounded-circle"
+                                height="25"
+                                alt="Black and White Portrait of a Man"
+                                loading="lazy"
+                        />
+                    </a>
+                    <ul
+                            class="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="navbarDropdownMenuAvatar"
+                    >
+                    <li>
+                        <a class="dropdown-item" href="{% url 'user_profile' user.username %}">My profile</a>
+                    </li>
+                    {% if request.user.is_superuser %}cd
+                        <li class="dropdown-item">
+                            <a class="nav-link" href="{% url 'add' %}">E'lon qo'shish</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                {% endif %}
+                </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Right links -->
+        <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+{% endblock header %}
+
+
+{% for model in models %}
+    {% block title %}
+        <title>{{ model.name }}</title>
+    {% endblock title %}
+
+    {% block main %}
+        <!--styles-->
+        <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li
+                            class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">{{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <div id="detail" class="card container" style="border: 2px solid black">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <p class="card-title">Markasi: {{ model.brand }}</p>
+                    <div style="margin-left: 950px;">
+                        <i class="far fa-eye">  {{ model.views }}</i>
+                    </div>
+                    {% if request.user == model.autor or request.user.is_superuser %}
+                        <div>
+                            <a href="{% url 'edit' model.pk %}"><i class="far fa-pen-to-square"></i></a>
+                        </div>
+                        <div>
+                            <a href="{% url 'delete' model.pk %}"><i class="far fa-trash-can"></i></a>
+                        </div>
+                    {% else %}
+                    {% endif %}
+                </div>
+                <p class="card-title">Modeli: {{ model.name }}</p>
+                <p class="card-text">Yili: {{ model.year }}</p>
+                <p class="card-text">Yurgani: {{ model.mileage }} km</p>
+                <p class="card-text">Sotuvchidan ma'lumot: {{ model.description }} km</p>
+                <p class="card-text">Narxi: {{ model.price }}$</p>
+                <p class="card-text">Manzil: {{ model.address }}</p>
+                <p class="card-text">Telefon raqam: {{ model.phone_number }}</p>
+                <p class="card-text"><small class="text-muted">{{ model.pub_date }}</small></p>
+                <hr>
+            </div>
+            <img src="{{ model.photo.url }}" class="card-img-bottom" alt="Camera"/>
+
+
+            <form method="post" action="{% url 'comment' model.pk %}" style="margin-top: 20px; margin-bottom: 20px">
+                {% csrf_token %}
+                {{ form.text }}
+                <button style="margin-top: 5px" type="submit" class="btn btn-success">Send <i
+                        class="fas fa-long-arrow-alt-right ms-1"></i>
+                </button>
+            </form>
+
+
+        </div>
+
+
+        <div class="card-body p-4 container">
+            <h3>Kommentlar</h3>
+            <div class="d-flex flex-start">
+                <div style="border: 2px solid black; border-radius: 15px; margin-bottom: 100px; padding: 10px 10px 10px 10px">
+                    {% for comment in comments %}
+                        <div style="padding: 10px 100px 10px 80px">
+                            <small class="text-muted"><p>Username: {{ comment.comentator }}</p></small>
+                            <b class="mb-0">
+                                {{ comment.text }}
+                            </b>
+                            <div class="d-flex align-items-center">
+                                <p class="mt-2">
+                                    <small class="text-muted">{{ comment.pub_date }}</small>
+                                </p>
+                            </div>
+                            <hr>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+
+    {% endblock main %}
+{% endfor %}
